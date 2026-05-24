@@ -100,3 +100,122 @@ Hệ thống cho phép ngụy trang hoàn toàn một gói ứng dụng thành m
 * **Thao tác môi trường SDK:** Tinh chỉnh các thông số API tương thích bao gồm `Phiên bản SDK tối thiểu` (Min SDK), `Phiên bản SDK biên dịch` (Compile SDK), và `Phiên bản SDK mục tiêu` (Target SDK) nhằm ép ứng dụng chạy trên các phiên bản Android cũ hoặc mới trái với thiết kế gốc.
 * **Thao tác định danh không gian người dùng:** Thay đổi `sharedUserId` để cấp cho ứng dụng khả năng chạy chung luồng bộ nhớ với các ứng dụng hệ thống (nếu có cùng chữ ký).
 * **Mô phỏng chữ ký chéo:** Tính năng "Chọn tệp ứng dụng để chép chữ ký" cho phép trích xuất chứng chỉ số từ một ứng dụng `A` và ép lên ứng dụng `B`, một kỹ thuật then chốt trong việc qua mặt các dịch vụ xác thực liên kết (ví dụ: các ứng dụng chung hệ sinh thái đòi hỏi chung chữ ký để đồng bộ dữ liệu).
+
+
+
+
+*Extra: Lucky Patcher Android GUI:
+Mở => List installed App
+Menu_SideBar(tùy chọn): công tác, hộp công cụ, sao lưu, dựng lại và cài đặt (File Manager), Cài đặt, Tải các bản vá tùy chỉnh xuống, Cập nhật LP, hiện các bản vá tùy chỉnh mới nhất(patch.chelpus.com), quét lại các ứng dụng, nhập/xuất cài đặt
+
+Menu_Bottom: công tắc, hộp công cụ, sao lưu, dựng lại & cài đặt
+
+*Công tắc:
+Non-root:
+1.Giả lập google thanh toán: Yêu cầu "Bản vá hỗ trợ cho InApp và LVL" để nhắm mục tiêu Ứng dụng và áp dụng "Bản vá cho Android". Sử dụng bản vá tùy chỉnh "Support.InApp.LVL ..." cho Google Play để có thông tin mua hàng và giá chính xác trong ứng dụng. (BẬT, Default)
+2.Máy chủ proxy để mô phỏng mua hàng inapp: Dịch vụ này là cần thiết cho "Bản vá hỗ trợ cho mô phỏng InApp và LVL" và xây dựng lại ứng dụng với nó. (BẬT, Default)
+5.[Nút ngang dài]: Đặt các thay đổi về mặc định
+
+*hộp công cụ:
+Non-root:
+2.Hoạt động hàng loạt: Sao lưu APK của ứng dụng đã chọn
+3.Loại bỏ mục mua đã lưu (check list và chọn xóa)
+vD: subscription_pre              [XÓA]
+
+*Sao lưu: Mở đường dẫn mà tệp apk sao lưu định cư
+
+Menu_{app_name}: mở ra menu mini của app đã chọn
+ Menu_mini_{app_name}: 
+ +thông tin ứng dụng
+ +chạy ứng dụng
+ +menu các bản vá: (apk)[với multi-patch, không có xác minh giấy phép, không có google ads, đã xây dựng lại cho giả lập InApp và LVL, với quyền và hđ ứng dụng đã được thay đổi, ký lại với phép kiểm tra chữ ký, ký lại bằng chứ ký gốc cho bản vá lỗi "Vô hiệu hóa xác minh chữ ký .apk"] (tên và chức năng, các option khác của từng chức năng đã đè cập trước đó)
+ +công cụ [nhân bản ứng dụng, sao lưu, mở trong ggplay, chia sẻ ứng dụng]
+ +xóa ứng dụng
+ +quảng lý ứng dụng
+
+*[Tùy chọn bổ sung] xuất hiện khi mở tất cả các bản vá còn lại cho apk trừ bản vá "ký lại bằng chứ ký gốc cho bản vá lỗi "Vô hiệu hóa xác minh chữ ký .apk":
+ +Sao lưu tệp .apk
+ +Hủy xác minh chữ ký: Chèn mã vào ứng dụng để đánh lừa xác minh chữ ký của ứng dụng. Nó phải được áp dụng nghiêm ngặt cho ứng dụng ban đầu. Nếu ứng dụng đã được xây dựng lại, điều này không những giúp ích được gì mà còn có thể gây hại nếu tùy chọn đã được triển khai thành công. 
+ +Loại bỏ kiểm tra tính toàn vẹn và xác minh chữ ký: Chèn mã vào ứng dụng để vượt qua kiểm tra dex và xác minh chữ ký. Phương pháp này tăng gấp đôi kích thước của ứng dụng.
+ +Giả mạo kho lưu trữ APK đã sửa đổi từ nguyên bản: Cố gắng vượt rào kiểm tra tệp bằng cách sửa đổi kho lưu trữ zip. Nếu kho lưu trữ được sửa đổi sau cái này, phương pháp có thể không làm việc.
+ +Ký lại bằng chữ ký gốc cho bản vá lỗi "Vô hiệu hóa xác minh chữ ký .apk" (không xuất hiện tại bản vá "ký lại với phép kiểm tra chứ ký")
+
+*Tác vụ khi làm việc 1(VD: App = Coddy, Apk với bản vá InApp và LVL, theo Reassembly Dex + "Hỗ trợ mô phỏng cho LVL và InApp"(Chuyển hướng tất cả yêu cầu xác minh giấy phép và các giao dịch mua inapp đến Lucky Patcher) ):
+ 1.Lấy tệp từ ứng dụng
+ 2.Tập hợp lại 1 tập tin dex với các chuỗi mới classes.dex 
+ 3.Phân tích các chuỗi...
+ 4.Đang vá classes.dex
+   Đang vá classes2.dex
+ 5.Tập hợp lại 1 tập tin dex với các chuỗi mới classes.dex
+   Tập hợp lại 1 tập tin dex với các chuỗi mới classes2.dex
+   Tập hợp lại 1 tập tin dex với các chuỗi mới classes3.dex 
+ 6.Kết quả phân tích classes.dex
+ 7.Đóng gói các tệp thành apk:
+  assets/...
+  res/...
+ 8.Áp dụng căn chỉnh zip cho split_config.arm64_v8a.apk
+ 9.Đóng gói các tệp thành apk:
+  	META-INF/MANIFEST.MF
+ 10.Ap dụng căn chỉnh zip cho split_config.xhdpi.apk
+
+ 11.Show kết quả:
+  +Coddy
+
+  +Bản vá hỗ trợ cho giả lập InApp và LVL:
+   <>Đã thêm mô phỏng cho các giao dịch mua LVL và Inapp.
+   Vá mẫu N1: Thành công
+   Vá mẫu N2: Thành công
+   Vá mẫu N3: Thành công
+   Vá mẫu N4: Thất bại
+   Vá mẫu N5: Thành công
+
+  +*các bản vá khác nếu có*
+
+  [Đi tới tập tin]    [Truy cập]    [OK]
+
+
+*Tác vụ khi làm việc 2(VD: App = Coddy, bản vá "Apk không google ads"):
+ /Checkbox:
+  (Chọn)1.Xoá liên kết khỏi APK:
+  	Loại bỏ các liên kết http:// sử dụng các mẫu từ các tập tin AdsBlockList_user_edit.txt và AdsBlockList.txt.
+  (Chọn)2.Làm hỏng phần nhận quảng cáo
+	Thử phá vỡ cơ chế tiếp nhận của Google Ads.
+  (Chọn)3.Vá ngoại tuyến
+	Làm cho các module quảng cáo nghĩ rằng nó ngoại tuyến.
+  (Chọn)4.Các bản vá khác
+	Các bản vá lỗi khác hữu ích trong việc loại bỏ quảng cáo.
+  (Chọn)5.Gỡ bỏ phần phụ thuộc
+	Loại bỏ Google Play lệ thuộc và những thứ khác...
+  (Không chọn)6.Tạo ngoại tuyến đầy đủ
+	Thử làm ứng dụng làm việc ngoại tuyến.
+ 1.Lấy tệp từ ứng dụng
+ 2.Phân tích các chuỗi
+ 3.Đang vá classes.dex
+ 4.Phân tích các chuỗi
+ 5.Đang vá classes2.dex
+ 6.Phân tích các chuỗi
+ 7.Kết quả phân tích classes2.dex
+ 8.Đang đóng gói các tệp thành apk:
+  assets/...
+  classes2.dex
+  lib/...
+  res/...
+  META-INF/MANIFEST.MF
+ 9.Ap dụng căn chỉnh zip cho split_config.xhdpi.apk
+
+ 10.Show kết quả:
+  +Coddy
+
+  +Loại bỏ quảng cáo:
+   Chuỗi từ AdsBlockList - đã được loại bỏ. (30)
+   Vá mẫu N1: Thất bại
+   Vá mẫu N2: Thất bại
+   Vá mẫu N3: Thất bại
+   Vá mẫu N4: Thất bại
+   Vá mẫu N5: Thành công
+   Vá mẫu N5: Thành công
+
+  [...nút...]
+
+{Đã loại bỏ 1 số thứ không cần thiết khi đưa lên PC}
+{Tên chỉ là giả định, đặt ra để nhìn dễ hơn, không phải là tên thật ở trong LP Android Source Code}
